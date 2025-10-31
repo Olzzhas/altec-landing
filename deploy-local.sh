@@ -91,26 +91,34 @@ echo ""
 # Шаг 8: Настройка Nginx
 echo -e "${YELLOW}⚙️  Настройка Nginx...${NC}"
 
-sudo tee /etc/nginx/sites-available/altec > /dev/null << 'EOF'
+# Проверяем, есть ли уже настроенный домен
+CURRENT_DOMAIN=$(grep -oP 'server_name \K[^;]+' /etc/nginx/sites-available/altec 2>/dev/null | head -1 | xargs)
+
+if [ -n "$CURRENT_DOMAIN" ] && [ "$CURRENT_DOMAIN" != "_" ]; then
+    echo -e "${GREEN}✅ Домен уже настроен: $CURRENT_DOMAIN${NC}"
+    echo -e "${YELLOW}Конфигурация Nginx не изменена${NC}"
+else
+    echo -e "${YELLOW}Создание базовой конфигурации...${NC}"
+    sudo tee /etc/nginx/sites-available/altec > /dev/null << 'EOF'
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
-    
+
     root /var/www/altec;
     index index.html;
-    
+
     server_name _;
-    
+
     location / {
         try_files $uri $uri.html $uri/ =404;
     }
-    
+
     # Кэширование статических файлов
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|webp)$ {
         expires 1y;
         add_header Cache-Control "public, immutable";
     }
-    
+
     # Gzip сжатие
     gzip on;
     gzip_vary on;
@@ -118,6 +126,7 @@ server {
     gzip_types text/plain text/css text/xml text/javascript application/x-javascript application/xml+rss application/javascript application/json;
 }
 EOF
+fi
 
 # Активация конфигурации
 sudo ln -sf /etc/nginx/sites-available/altec /etc/nginx/sites-enabled/altec
