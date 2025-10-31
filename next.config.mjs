@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    output: 'export',
     images: {
+        unoptimized: true,
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'altayenergoklaster.ru', 
+            hostname: 'altayenergoklaster.ru',
             port: '',
-            pathname: '/**', 
+            pathname: '/**',
           },
         ],
       },

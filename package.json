@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "deploy": "./deploy.sh",
+    "deploy:quick": "./quick-deploy.sh",
+    "server:check": "./check-server.sh"
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.1.4",
