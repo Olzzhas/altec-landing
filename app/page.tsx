@@ -4,7 +4,6 @@ import Menu from "@/components/menu";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import dynamic from 'next/dynamic';
-import { useState } from "react";
 
 
 
@@ -124,10 +123,11 @@ export default function Home() {
     },
   ];
 
-  const [phoneNumber, setPhoneNumber] = useState('+7 (777) 522-91-80'); // Replace with actual phone number
-
-  const handleDial = () => {
-    window.location.href = `tel:${phoneNumber}`;
+  const scrollToContacts = () => {
+    const contactsSection = document.getElementById('contacts');
+    if (contactsSection) {
+      contactsSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   
 
@@ -158,7 +158,7 @@ export default function Home() {
           </h2>
           </div>
           <div className="justify-center flex w-full mt-7">
-            <Button variant={'secondary'} onClick={handleDial}>
+            <Button variant={'secondary'} onClick={scrollToContacts}>
               Связаться с отделом продаж
             </Button>
           </div>
@@ -350,7 +350,7 @@ export default function Home() {
             </div>
           ))}
         </div>
-      <div className="flex flex-col align-middle justify-center h-96">
+      <div id="contacts" className="flex flex-col align-middle justify-center h-96">
         <h1 className="self-center scroll-m-20 text-2xl font-extrabold tracking-normal lg:text-4xl text-center">Контакты для консультации и подбора оборудования</h1>
           <h2 className="self-center scroll-m-20 text-xl font-light tracking-tight mt-6">
             sales@td-altec.kz

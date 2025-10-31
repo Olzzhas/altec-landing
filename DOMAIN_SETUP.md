@@ -61,7 +61,7 @@ TTL: Auto или 3600
 #!/bin/bash
 
 # Замените на ваш домен
-DOMAIN="example.com"
+DOMAIN="td-altec.kz"
 
 echo "🌐 Настройка домена: $DOMAIN"
 
