@@ -92,12 +92,17 @@ echo ""
 echo -e "${YELLOW}⚙️  Настройка Nginx...${NC}"
 
 # Проверяем, есть ли уже настроенный домен
-CURRENT_DOMAIN=$(grep -oP 'server_name \K[^;]+' /etc/nginx/sites-available/altec 2>/dev/null | head -1 | xargs)
+if [ -f /etc/nginx/sites-available/altec ]; then
+    CURRENT_DOMAIN=$(grep "server_name" /etc/nginx/sites-available/altec 2>/dev/null | head -1 | sed 's/.*server_name //;s/;//' | xargs)
 
-if [ -n "$CURRENT_DOMAIN" ] && [ "$CURRENT_DOMAIN" != "_" ]; then
-    echo -e "${GREEN}✅ Домен уже настроен: $CURRENT_DOMAIN${NC}"
-    echo -e "${YELLOW}Конфигурация Nginx не изменена${NC}"
-else
+    if [ -n "$CURRENT_DOMAIN" ] && [ "$CURRENT_DOMAIN" != "_" ]; then
+        echo -e "${GREEN}✅ Домен уже настроен: $CURRENT_DOMAIN${NC}"
+        echo -e "${YELLOW}Конфигурация Nginx не изменена${NC}"
+        SKIP_NGINX_CONFIG=true
+    fi
+fi
+
+if [ "$SKIP_NGINX_CONFIG" != "true" ]; then
     echo -e "${YELLOW}Создание базовой конфигурации...${NC}"
     sudo tee /etc/nginx/sites-available/altec > /dev/null << 'EOF'
 server {
