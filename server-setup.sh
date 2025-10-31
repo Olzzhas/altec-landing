@@ -26,6 +26,17 @@ apt-get upgrade -y
 echo -e "${YELLOW}📦 Установка необходимых пакетов...${NC}"
 apt-get install -y nginx curl wget git ufw
 
+# Установка Node.js
+echo -e "${YELLOW}📦 Установка Node.js...${NC}"
+if ! command -v node &> /dev/null; then
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+    apt-get install -y nodejs
+    echo "✅ Node.js установлен: $(node --version)"
+    echo "✅ npm установлен: $(npm --version)"
+else
+    echo "✅ Node.js уже установлен: $(node --version)"
+fi
+
 # Настройка firewall
 echo -e "${YELLOW}🔥 Настройка firewall...${NC}"
 ufw allow 22/tcp    # SSH

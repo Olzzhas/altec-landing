@@ -16,6 +16,7 @@ ssh-copy-id root@194.32.142.152
 
 ## 📚 Документация
 
+- **[SERVER_INSTALL.md](./SERVER_INSTALL.md)** - ⚠️ Установка Node.js на сервере (если нужно)
 - **[DEPLOY_QUICK_START.md](./DEPLOY_QUICK_START.md)** - Быстрый старт (5 минут)
 - **[DEPLOY.md](./DEPLOY.md)** - Полная инструкция
 - **[COMMANDS.md](./COMMANDS.md)** - Все команды
