@@ -7,7 +7,7 @@ fi
 
 # Конфигурация (можно переопределить через .env.deploy)
 SERVER_IP="${DEPLOY_SERVER_IP:-194.32.142.152}"
-SERVER_USER="${DEPLOY_SERVER_USER:-root}"
+SERVER_USER="${DEPLOY_SERVER_USER:-ubuntu}"
 REMOTE_DIR="${DEPLOY_REMOTE_DIR:-/var/www/altec}"
 BUILD_DIR="${DEPLOY_BUILD_DIR:-./out}"
 
